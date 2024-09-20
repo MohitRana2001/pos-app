@@ -4,9 +4,14 @@ import { Button } from "@/app/ui/button"
 import { Input } from "@/app/ui/input"
 import { Label } from "@/app/ui/label"
 import { QRCodeSVG } from 'qrcode.react'
-import { saveAs } from 'file-saver';
 
-export default function QRCodeModal({ isOpen, onClose, addToInventory }) {
+interface QRCodeModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  addToInventory: (product: { id: number; name: string; price: string; sku: string; quantity: number }) => void;
+}
+
+export default function QRCodeModal({ isOpen, onClose, addToInventory }: QRCodeModalProps) {
   const [productData, setProductData] = useState({
     name: '',
     price: '',
@@ -31,7 +36,7 @@ export default function QRCodeModal({ isOpen, onClose, addToInventory }) {
     }
   }
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setProductData(prev => ({ ...prev, [name]: value }))
   }
@@ -113,7 +118,7 @@ export default function QRCodeModal({ isOpen, onClose, addToInventory }) {
         </div>
         <DialogFooter>
           <Button type="submit" onClick={generateQRCode}>Generate QR Code</Button>
-          <Button variant="primary" onClick={handleAddToInventory}>Add to Inventory</Button>
+          <Button variant="secondary" onClick={handleAddToInventory}>Add to Inventory</Button>
           {/* <Button type="button" onClick={getSavedQRCode}>Load Saved QR Code</Button> */}
         </DialogFooter>
         {qrCode && (

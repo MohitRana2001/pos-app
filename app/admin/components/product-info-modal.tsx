@@ -2,7 +2,20 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Button } from "@/app/ui/button"
 import { QRCodeSVG } from 'qrcode.react'
 
-export default function ProductInfoModal({ isOpen, onClose, productData, onDelete }) {
+interface ProductData {
+  name: string;
+  price: number;
+  sku: string;
+}
+
+interface ProductInfoModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  productData: ProductData;
+  onDelete: () => void;
+}
+
+export default function ProductInfoModal({ isOpen, onClose, productData, onDelete }: ProductInfoModalProps) {
 
   const API_ENDPOINT = "http://localhost:3000/admin/product";
 
